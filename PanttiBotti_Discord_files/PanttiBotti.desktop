@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/home/pi/Desktop/PanttiBotti_Discord_files/Panttibotti.sh
+Name=PanttiBotti
+Icon=/home/pi/Desktop/PanttiBotti_Discord_files/pantti_logo.png

@@ -68,6 +68,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
               deposit_value = 0;
               deposit_ammount = 0;
          break;
+
            case 'help':
                bot.sendMessage({
                to: channelID,
@@ -75,10 +76,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         +'!intro:\t introduces the bot and tells it purpose \n\n'
                         +'!value:\t The bot tells you the value of your bottle deposits \n\n'
                         +'!bottles:\t The bot tells you the ammount of bottles you have deposited\n\n'
-                        +'!clear:\t Use this to reset the bot in case you have emptyed the bottle holder'
+                        +'!clear:\t Use this to reset the bot in case you have emptyed the bottle holder\n\n'
+                        +'!exit: \t This command shutsdown the bot and makes it disconnect from the server\n\n'
                });
           break;
 
+          case 'exit':
+              process.exit();
          }
      }
 });
