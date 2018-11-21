@@ -1,0 +1,10 @@
+.container{
+  background-color: #007bff;
+  display: flex;
+  justify-content:center;
+  flex-direction: column;
+}
+#login_row{
+background-color: red;
+align-self: center;
+}
