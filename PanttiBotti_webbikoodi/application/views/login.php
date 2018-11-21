@@ -7,14 +7,14 @@
     <title>PanttiBotti_Login</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container bg-light">
       <div id="login_row">
-
       <form class="" action="login_data.php" method="post">
         <label for="username_label">Username:</label><br>
         <input type="text" name="username_input" placeholder="Username"><br>
         <label for="password_label">Password:</label><br>
-        <input type="text" name="password_input" placeholder="Password"><br>
+        <input type="password" name="password_input" placeholder="Password"><br><br>
+        <input type="submit" name="sign_in" value="Sign in"> <br><br>
       </div>
       </form>
     </div>
