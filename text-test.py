@@ -1,6 +1,20 @@
+
+def pantti(input_text):
+    if input_text == "0,15":
+        sum = sum + 0.15
+        print(input_text)
+        return 
+    elif input_text == "0,20":
+        sum = sum + 0.20
+        print(input_text)       
+    if input_text == "Pantti":
+        print(input_text)
+    elif input_text == "Pant":
+        print(input_text)
+        
 def detect_text(path):
     """Detects text in the file."""
-    from google.cloud import vision
+    
     client = vision.ImageAnnotatorClient()
 
     with io.open(path, 'rb') as image_file:
@@ -13,36 +27,42 @@ def detect_text(path):
     print('Texts:')
 
     for text in texts:
-        print('\n"{}"'.format(text.description))
+      
+        sum = pantti(text.description)
 
-        vertices = (['({},{})'.format(vertex.x, vertex.y)
-                    for vertex in text.bounding_poly.vertices])
+        #vertices = (['({},{})'.format(vertex.x, vertex.y)
+        #            for vertex in text.bounding_poly.vertices])
 
-        print('bounds: {}'.format(','.join(vertices)))
+#        print('bounds: {}'.format(','.join(vertices)))
+    image_file.close
+    
+def camera_thread():
+    while 1:
 
+        camera.capture('/etc/python2.7/pythonjutut/cam.jpg')
+
+        # Instantiates a client
+        client = vision.ImageAnnotatorClient()
+
+        # The name of the image file to annotate
+        file_name = os.path.join(
+            os.path.dirname('__file__'),
+            'cam.jpg')
+
+        # Loads the image into memory
+        with io.open(file_name, 'rb') as image_file:
+            content = image_file.read()
+
+        image = types.Image(content=content)
+        detect_text(file_name)
+        
+import threading
 import io
 import os
 from picamera import PiCamera
-
-camera = PiCamera()
-camera.resolution = (1600, 1200)
-camera.capture('/etc/python2.7/pythonjutut/cam.jpg')
-
-# Imports the Google Cloud client library
 from google.cloud import vision
 from google.cloud.vision import types
-
-# Instantiates a client
-client = vision.ImageAnnotatorClient()
-
-# The name of the image file to annotate
-file_name = os.path.join(
-    os.path.dirname(__file__),
-    'cam.jpg')
-
-# Loads the image into memory
-with io.open(file_name, 'rb') as image_file:
-    content = image_file.read()
-
-image = types.Image(content=content)
-detect_text(file_name)
+camera = PiCamera()
+camera.resolution = (1600, 1200)
+t = threading.Thread(target=camera_thread)
+t.start()
