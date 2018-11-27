@@ -22,4 +22,48 @@ class Oma_controlleri extends CI_Controller {
 	{
 		$this->load->view('login.php');
 	}
+
+	public function enter_mainpage()
+	{
+		$this->load->view('site_construction/main_site.php');
+	}
+
+	public function check_credentials(){
+		$data['user_credentials']=$this->input->post();
+		$this->load->model('Database_access');
+		$validation = $this->Database_access->compare_credentials($data);
+		if($validation == TRUE)
+		{
+			redirect(base_url().'/index.php/Oma_controlleri/enter_mainpage');
+		}
+		else {
+			{
+				redirect(base_url());
+			}
+		}
+	}
+
+	public function load_registeration_form()
+	{
+		$this->load->view('register_form');
+	}
+
+	public function add_user()
+	{
+		$data['new_user']=$this->input->post();
+		$this->load->model('Database_access');
+		$user_created = $this->Database_access->add_user_DB($data);
+		if($user_created == TRUE)
+		{
+			redirect(base_url().'/index.php/Oma_controlleri/register_success');
+		}
+		else {
+			redirect(base_url().'index.php/Oma_controlleri/load_registeration_form');
+		}
+	}
+
+	public function register_success()
+	{
+	$this->load->view('register_successful');
+}
 }

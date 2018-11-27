@@ -3,13 +3,28 @@ html,body {
 }
 
 .container{
-  background-color: blue;
   display: flex;
   justify-content:center;
   flex-direction: column;
   min-height: 100%;
 }
-#login_row{
-  background-color: red;
+.login_row{
 align-self: center;
+}
+#new_user_button{
+  padding-top: 1%;
+  margin-left: -9%;
+  align-self: center;
+}
+
+.padder{
+  margin-left:10%;
+  margin-top: 2%;
+}
+
+.up_padder{
+  margin-top: 2%;
+}
+a:link{
+  background-color: primary !important;
 }
