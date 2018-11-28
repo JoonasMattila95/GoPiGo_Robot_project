@@ -1,25 +1,25 @@
 def camera_thread():
-    while 1:
-
-        camera.capture('/etc/python2.7/pythonjutut/cam.jpg')
+   # while 1:
+    camera.capture('/etc/python2.7/pythonjutut/cam.jpg')
 
         # Instantiates a client
-        client = vision.ImageAnnotatorClient()
+    client = vision.ImageAnnotatorClient()
 
         # The name of the image file to annotate
-        file_name = os.path.join(
-            os.path.dirname('__file__'),
-            'cam.jpg')
+    file_name = os.path.join(
+        os.path.dirname('__file__'),
+        'cam.jpg')
 
         # Loads the image into memory
-        with io.open(file_name, 'rb') as image_file:
-            content = image_file.read()
+    with io.open(file_name, 'rb') as image_file:
+        content = image_file.read()
 
-        image = types.Image(content=content)
-        detect_text(file_name)
+    image = types.Image(content=content)
+    detect_text(file_name)
+    t = threading.Timer(5.0 , camera_thread)
+    t.start()
         
 def detect_text(path):
-    """Detects text in the file."""
     
     client = vision.ImageAnnotatorClient()
 
@@ -48,12 +48,10 @@ from google.cloud.vision import types
 import pantti
 
 
-try:
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/home/pi/vision1-20f70600c2fc.json"
-    p = pantti.pantti(0,0)
-    camera = PiCamera()
-    camera.resolution = (1600, 1200)
-    t = threading.Thread(target=camera_thread)
-    t.start()
-except (KeyboardInterrupt, SystemExit):
-    print("asd")
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/home/pi/vision1-20f70600c2fc.json"
+p = pantti.pantti(0,0)
+camera = PiCamera()
+camera.resolution = (1600, 1200)
+t = threading.Timer(5.0 , camera_thread)
+t.start()
