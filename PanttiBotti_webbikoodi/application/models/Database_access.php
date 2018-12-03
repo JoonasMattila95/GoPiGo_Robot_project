@@ -79,6 +79,20 @@ function add_user_DB($data)
   }
   }
 }
+<<<<<<< Updated upstream
+=======
+
+function fetch_data()
+{
+  $this->load->database();
+
+  $DB_log = $this->db->query('select * from ajodata ');
+  $DB_log = $DB_log->result();
+  return $DB_log;
+}
+
+
+>>>>>>> Stashed changes
 }
 
 ?>

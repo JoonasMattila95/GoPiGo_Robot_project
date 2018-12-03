@@ -10,20 +10,19 @@ if(is_null($_SESSION['user']) == TRUE)          //Check if user has logged in
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Panttibotti_etusivu</title>
+    <title>Ajodata</title>
   </head>
   <body>
-<<<<<<< Updated upstream
-    <?php echo'<h1> Tervetuloa Panttibotin etusivulle '.$_SESSION['user'].' </h1>'; ?>
-  </body>
-  <?php include 'footer.php'; ?>
-=======
     <div class="bg-dark" id="main_page">
-      <div class="row offset-3 bg-secondary w-50">
-    <?php echo'<h1> Tervetuloa Panttibotin etusivulle '.$_SESSION['user'].' </h1>'; ?>
+      <div class="row offset-5  w-25" id="scrollable">
+        <ul class="data_list">
+          <?php
+            foreach ($drive_data as $value) {
+              echo "<li>".$value->komento."<br>";
+              echo $value->timestamp."</li>";}?>
+        </ul>
       </div>
     </div>
   <?php include 'footer.php'; ?>
   </body>
->>>>>>> Stashed changes
 </html>

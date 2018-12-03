@@ -65,5 +65,27 @@ class Oma_controlleri extends CI_Controller {
 	public function register_success()
 	{
 	$this->load->view('register_successful');
+<<<<<<< Updated upstream
 }
+=======
+	}
+
+	public function logout()
+	{
+		$this->load->view('logout.php');
+	}
+
+	public function plain_data_load()
+	{
+		$this->load->model('Database_access');
+		$log['drive_data']= $this->Database_access->fetch_data();
+		$this->load->view('site_construction/plain_data',$log);
+	}
+
+	public function visual_data_load()
+	{
+		$this->load->view('site_construction/visual_data');
+	}
+
+>>>>>>> Stashed changes
 }
