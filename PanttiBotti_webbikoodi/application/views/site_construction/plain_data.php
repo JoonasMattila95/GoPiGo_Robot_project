@@ -19,7 +19,7 @@ if(is_null($_SESSION['user']) == TRUE)          //Check if user has logged in
           <?php
             foreach ($drive_data as $value) {
               echo "<li>".$value->komento."<br>";
-              echo $value->timestamp."</li>";}?>
+              echo $value->timestamp." <br> <br></li>";}?>
         </ul>
       </div>
     </div>

@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-<h1> footer </h1>
-<?php echo "tervetuloa"?>
-=======
 <div class="bg-secondary" id="footer">
   <div class="row">
     <div class="col-sm">
@@ -12,4 +8,3 @@
   </div>
   </div>
 </div>
->>>>>>> Stashed changes

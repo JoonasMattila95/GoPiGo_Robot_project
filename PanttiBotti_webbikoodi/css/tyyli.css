@@ -7,10 +7,7 @@ html,body {
   justify-content:center;
   flex-direction: column;
   min-height: 100%;
-<<<<<<< Updated upstream
-=======
   min-width: 100%;
->>>>>>> Stashed changes
 }
 .login_row{
 align-self: center;
@@ -29,10 +26,6 @@ align-self: center;
 .up_padder{
   margin-top: 2%;
 }
-<<<<<<< Updated upstream
-a:link{
-  background-color: primary !important;
-=======
 
 #topbar{
   width: 100%;
@@ -109,5 +102,31 @@ a:link{
 #visual_data_box
 {
   height: 90%;
->>>>>>> Stashed changes
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.title {
+  font: bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
 }

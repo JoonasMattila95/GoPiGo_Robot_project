@@ -13,11 +13,6 @@ if(is_null($_SESSION['user']) == TRUE)          //Check if user has logged in
     <title>Panttibotti_etusivu</title>
   </head>
   <body>
-<<<<<<< Updated upstream
-    <?php echo'<h1> Tervetuloa Panttibotin etusivulle '.$_SESSION['user'].' </h1>'; ?>
-  </body>
-  <?php include 'footer.php'; ?>
-=======
     <div class="bg-dark" id="main_page">
       <div class="row offset-3 bg-secondary w-50">
     <?php echo'<h1> Tervetuloa Panttibotin etusivulle '.$_SESSION['user'].' </h1>'; ?>
@@ -25,5 +20,4 @@ if(is_null($_SESSION['user']) == TRUE)          //Check if user has logged in
     </div>
   <?php include 'footer.php'; ?>
   </body>
->>>>>>> Stashed changes
 </html>

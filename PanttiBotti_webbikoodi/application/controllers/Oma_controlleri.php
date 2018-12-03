@@ -65,9 +65,6 @@ class Oma_controlleri extends CI_Controller {
 	public function register_success()
 	{
 	$this->load->view('register_successful');
-<<<<<<< Updated upstream
-}
-=======
 	}
 
 	public function logout()
@@ -87,5 +84,4 @@ class Oma_controlleri extends CI_Controller {
 		$this->load->view('site_construction/visual_data');
 	}
 
->>>>>>> Stashed changes
 }
