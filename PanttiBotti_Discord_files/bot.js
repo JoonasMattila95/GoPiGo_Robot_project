@@ -3,8 +3,26 @@ var logger = require('winston');
 var auth = require('./auth.json');
 var bot_info = require('./package.json');
 var settings = require('./settings.json');
-var deposit_value = 0;
-var deposit_ammount = 2;
+var mysql = require('mysql');
+
+//Mysql moduulin yhdistäminen tietokantaan
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "test_user",
+  password: "test_password",
+  database:"panttibotti"
+});
+
+con.connect(function(err){
+  if(err) throw err;
+  console.log("Connected!");
+});
+
+con.query('Select * from panttitieto', function (error, results, fields){
+  console.log(results);
+});
+
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -47,26 +65,39 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             break;
 
             case 'value':
-                bot.sendMessage({
-                to: channelID,
-                message: 'Value of the deposits is: ' + deposit_value +' €'
+                con.query('Select round(sum(pantti),2) as luku from panttitieto', function (error, results, fields){
+                  deposit_value = results[0].luku;
+                  if(deposit_value == null){
+                    deposit_value = 0;
+                  }
+                  bot.sendMessage({
+                  to: channelID,
+                  message: 'Value of the deposits is: ' + deposit_value +' €'
+                  });
                 });
            break;
 
            case 'bottles':
+           con.query('Select count(*) as lkm from panttitieto', function (error, results, fields){
+             deposit_amount = results[0].lkm;
+             if(deposit_amount == null)
+             {
+               deposit_amount = 0;
+             }
                bot.sendMessage({
                to: channelID,
-               message: 'You have depositted ' + deposit_ammount + ' bottles'
+               message: 'You have depositted ' + deposit_amount + ' bottles'
                });
+             });
           break;
 
           case 'clear':
+          con.query('truncate table panttitieto;',function (error, results, fields){
               bot.sendMessage({
               to: channelID,
               message: 'Deposits and their total value have been set back to 0 '
               });
-              deposit_value = 0;
-              deposit_ammount = 0;
+            })
          break;
 
            case 'help':
@@ -75,7 +106,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                message: 'All available commands:\n \n'
                         +'!intro:\t introduces the bot and tells it purpose \n\n'
                         +'!value:\t The bot tells you the value of your bottle deposits \n\n'
-                        +'!bottles:\t The bot tells you the ammount of bottles you have deposited\n\n'
+                        +'!bottles:\t The bot tells you the amount of bottles you have deposited\n\n'
                         +'!clear:\t Use this to reset the bot in case you have emptyed the bottle holder\n\n'
                         +'!exit: \t This command shutsdown the bot and makes it disconnect from the server\n\n'
                });
