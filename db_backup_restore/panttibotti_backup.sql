@@ -56,7 +56,7 @@ DROP TABLE IF EXISTS `panttitieto`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `panttitieto` (
   `pantti` double NOT NULL,
-  `lukumaara` int(11) NOT NULL
+  `timestamp` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -88,7 +88,7 @@ CREATE TABLE `user_info` (
 
 LOCK TABLES `user_info` WRITE;
 /*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
-INSERT INTO `user_info` VALUES ('joonas','geneerinen_salasana1'),('erkki','esimerkki'),('testikäyttäjä','testisalasana');
+INSERT INTO `user_info` VALUES ('joonas','geneerinen_salasana1'),('testikäyttäjä','testisalasana');
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -101,4 +101,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-28 11:08:42
+-- Dump completed on 2018-12-05  9:31:32
