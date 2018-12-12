@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTcpSocket>
 #include <iostream>
+#include <QIODevice>
 
 using namespace std;
 
@@ -22,7 +23,7 @@ signals:
     void finished();
 
 public slots:
-
+    void receive();
 
 private:
     QTcpSocket * socket;

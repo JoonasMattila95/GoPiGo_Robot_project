@@ -32,3 +32,8 @@ void MainWindow::on_close_button_clicked() //apin sulkemisnappi
     client->disconnect_f();
     emit client->finished();
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    client->receive();
+}
