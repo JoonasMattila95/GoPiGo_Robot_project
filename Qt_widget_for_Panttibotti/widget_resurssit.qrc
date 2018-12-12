@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/"/>
+    <qresource prefix="/materiaali">
+        <file>tekstuuri.jpg</file>
+        <file>matrix.jpg</file>
+    </qresource>
+</RCC>
