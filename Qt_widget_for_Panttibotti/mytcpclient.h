@@ -14,15 +14,16 @@ class MyTcpClient : public QObject
 public:
     explicit MyTcpClient(QObject *parent = nullptr);
     ~MyTcpClient();
-    void connect_f();
-    void disconnect_f();
     void stop_f();
     void skip_f();
+    void connectToServer();
 
 signals:
     void finished();
 
 public slots:
+    void myConnectedSlot();
+    void myBytesWrittenSlot(qint64 bytes);
     void receive();
 
 private:

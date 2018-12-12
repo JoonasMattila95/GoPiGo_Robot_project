@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     client = new MyTcpClient;
 
-    client->connect_f();
+    client->connectToServer();
 
 }
 
@@ -29,8 +29,7 @@ void MainWindow::on_photoreg_bypass_button_clicked() //kuvantunnistuksen ohitus
 
 void MainWindow::on_close_button_clicked() //apin sulkemisnappi
 {
-    client->disconnect_f();
-    emit client->finished();
+    MainWindow::close();
 }
 
 void MainWindow::on_pushButton_clicked()

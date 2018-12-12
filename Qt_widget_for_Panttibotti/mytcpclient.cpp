@@ -2,28 +2,44 @@
 
 MyTcpClient::MyTcpClient(QObject *parent) : QObject(parent)
 {
-    socket = new QTcpSocket;
-    connect(socket,SIGNAL(readyRead()),socket,SLOT(receive()));
-    emit socket->readyRead();
-
+    socket = new QTcpSocket();
+    qDebug() << "1: Socket Created" << endl;
+    connect(socket, SIGNAL(connected()),this, SLOT(myConnectedSlot()));
+    connect(socket, SIGNAL(bytesWritten(qint64)),this, SLOT(myBytesWrittenSlot(qint64)));
+    connect(socket, SIGNAL(readyRead()),this, SLOT(receive()));
 }
 
 MyTcpClient::~MyTcpClient()
 {
     delete socket;
     socket = nullptr;
+    qDebug() << "10: Socket Deleted";
 }
 
-void MyTcpClient::connect_f()
+void MyTcpClient::connectToServer()
 {
-    socket->connectToHost("192.168.43.81", 5550);   //yhdistetään porttiin 5550
-    cout << "Connecting to Server" << endl;
+    qDebug() << "2: Connecting To Server";
+    socket->connectToHost("192.168.43.81", 5550);
+    if(!socket->waitForConnected(3000))
+    {
+        qDebug() << "Error: " << socket->errorString();
+        socket->deleteLater();
+        exit(0);
+    }
+
 }
 
-void MyTcpClient::disconnect_f()
+void MyTcpClient::myConnectedSlot()
 {
-    socket->disconnectFromHost();
-    cout << "Disconnected from the Server" << endl;
+    qDebug() << "3: Client Connected To Server" << endl;
+    qDebug() << "4: Write message To Server.";
+    socket->write("Terve");
+}
+
+void MyTcpClient::myBytesWrittenSlot(qint64 bytes)
+{
+    qDebug() << "5:" << bytes << " bytes written." << endl;
+    qDebug() << "6: Wait for Server to answer..." << endl;
 }
 
 void MyTcpClient::stop_f()
