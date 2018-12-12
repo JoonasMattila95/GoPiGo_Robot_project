@@ -20,7 +20,7 @@ void MyTcpClient::connectToServer()
 {
     qDebug() << "2: Connecting To Server";
     socket->connectToHost("192.168.43.81", 5550);
-    if(!socket->waitForConnected(3000))
+    if(!socket->waitForConnected(300))
     {
         qDebug() << "Error: " << socket->errorString();
         socket->deleteLater();
