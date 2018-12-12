@@ -44,13 +44,13 @@ void MyTcpClient::myBytesWrittenSlot(qint64 bytes)
 
 void MyTcpClient::stop_f()
 {
-    socket->write("Halt boi");
+    socket->write("STOP");
 }
 
 
 void MyTcpClient::skip_f()
 {
-    socket->write("skip photo");
+    socket->write("OHITUS");
 }
 
 void MyTcpClient::receive()
