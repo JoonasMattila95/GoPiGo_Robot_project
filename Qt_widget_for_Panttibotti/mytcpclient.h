@@ -17,17 +17,23 @@ public:
     void stop_f();
     void skip_f();
     void connectToServer();
+    void disconnect_f();
+
+    string debug_handler();
+    void debug_send(string debug_message);
 
 signals:
     void finished();
+    void debug();
 
 public slots:
     void myConnectedSlot();
-    void myBytesWrittenSlot(qint64 bytes);
     void receive();
+    void myDisconnectedSlot();
 
 private:
     QTcpSocket * socket;
+    string info;
 };
 
 #endif // MYTCPCLIENT_H

@@ -3,43 +3,43 @@
 MyTcpClient::MyTcpClient(QObject *parent) : QObject(parent)
 {
     socket = new QTcpSocket();
-    qDebug() << "1: Socket Created" << endl;
     connect(socket, SIGNAL(connected()),this, SLOT(myConnectedSlot()));
-    connect(socket, SIGNAL(bytesWritten(qint64)),this, SLOT(myBytesWrittenSlot(qint64)));
     connect(socket, SIGNAL(readyRead()),this, SLOT(receive()));
+    connect(socket, SIGNAL(disconnected()),this, SLOT(myDisconnectedSlot()));
 }
 
 MyTcpClient::~MyTcpClient()
 {
     delete socket;
     socket = nullptr;
-    qDebug() << "10: Socket Deleted";
+    debug_send("10: Socket Deleted");
 }
 
 void MyTcpClient::connectToServer()
 {
-    qDebug() << "2: Connecting To Server";
+    debug_send("1: Socket Created");
+    debug_send("2: Connecting To Server");
     socket->connectToHost("192.168.43.81", 5550);
-    if(!socket->waitForConnected(300))
+    if(!socket->waitForConnected(100))
     {
-        qDebug() << "Error: " << socket->errorString();
-        socket->deleteLater();
-        exit(0);
+
+        QString data = "Error: ";
+        data.append(socket->errorString());
+        debug_send(data.toStdString());
     }
+
 
 }
 
 void MyTcpClient::myConnectedSlot()
 {
-    qDebug() << "3: Client Connected To Server" << endl;
-    qDebug() << "4: Write message To Server.";
-    socket->write("Terve");
+    debug_send("3: Client Connected To Server");
+    debug_send("4: Write message To Server.");
 }
 
-void MyTcpClient::myBytesWrittenSlot(qint64 bytes)
+void MyTcpClient::myDisconnectedSlot()
 {
-    qDebug() << "5:" << bytes << " bytes written." << endl;
-    qDebug() << "6: Wait for Server to answer..." << endl;
+    debug_send("Client disconnected from server");
 }
 
 void MyTcpClient::stop_f()
@@ -53,9 +53,27 @@ void MyTcpClient::skip_f()
     socket->write("OHITUS");
 }
 
+void MyTcpClient::disconnect_f()
+{
+    socket->close();
+
+}
+
 void MyTcpClient::receive()
 {
     cout << "vastaanotettu:";
     QString data = socket->readLine();
-    cout << data.toStdString() << endl;
+    debug_send(data.toStdString());
+}
+
+
+string MyTcpClient::debug_handler()
+{
+   return info;
+}
+
+void MyTcpClient::debug_send(string debug_message)
+{
+    info = debug_message;
+    emit debug();
 }
