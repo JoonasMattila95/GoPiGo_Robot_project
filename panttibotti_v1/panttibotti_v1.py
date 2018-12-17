@@ -7,7 +7,6 @@ def camera_thread():
     global start
     global driver
     camera.capture('/home/pi/Desktop/GoPiGo3/Software/Python/cam.jpg')
-    #print("camera threadissa")
         # Instantiates a client
     client = vision.ImageAnnotatorClient()
 
@@ -22,7 +21,6 @@ def camera_thread():
 
     image = types.Image(content=content)
     if detect_text(file_name) == True:
-        #print("uusi thread")
         start = True
         driver = True
 
@@ -30,7 +28,6 @@ def camera_thread():
 
         
 def detect_text(path):
-    #print("teksti threadi")
     client = vision.ImageAnnotatorClient()
 
     with io.open(path, 'rb') as image_file:
@@ -42,7 +39,6 @@ def detect_text(path):
     texts = response.text_annotations
 
     for text in texts:
-        #print("tarkistus")
         p.pantti_tarkastus(text.description)
 
     if p.insertpantti() == True:     
@@ -52,6 +48,34 @@ def detect_text(path):
         image_file.close
         return False
 
+def monitorSocketConnections():
+    global start
+    global driver
+    global Master
+    while True:
+        s.listen(1)
+        c, addr = s.accept()
+        print("got connection:",addr)
+        while True:
+            data = c.recv(BUFFER_SIZE)
+            if not data: break
+            if data == 'STOP':
+                gpg.stop()
+                gpg.reset_all()
+                Master = False
+                print('STOP')
+            elif data == 'CONTINUE':
+                print('CONTINUE')
+                Master = True
+            elif data == 'BYPASS':
+                print('BYPASS')
+                start = True
+                driver = True
+        c.close()
+        
+        
+        
+        
 
 def monitorSensorthread():
     global distance
@@ -59,9 +83,10 @@ def monitorSensorthread():
         distance = my_distance_sensor.read_mm()
 
 def dropoff():
+    servo.rotate_servo(110)
+    time.sleep(0.5)
     servo.rotate_servo(5)
     time.sleep(0.5)
-    servo.rotate_servo(110)
     return True
 
 def drive():
@@ -70,8 +95,6 @@ def drive():
     global driver
     global variable
     global old_variable
-    #print("start %s",start)
-    #print("driver %s",driver)
     gpg.set_speed(300)
 
     if my_linefollower.read_position() == 'center':
@@ -79,7 +102,7 @@ def drive():
         variable = 'center'
         global distance
         if distance <= 100 and distance != 0:
-            gpg.set_speed(100)
+            gpg.set_speed(200)
             gpg.turn_degrees(180)
 
     elif my_linefollower.read_position() == 'left':
@@ -115,6 +138,7 @@ def drive():
     return
 
 import threading
+import socket
 import easygopigo3 as easy
 import time
 import threading
@@ -131,15 +155,23 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/home/pi/vision1-20f70600c2fc.json
 p = pantti.pantti(0,0)
 camera = PiCamera()
 camera.resolution = (2592, 1944)
-#t1 = threading.Timer(1.0 , camera_thread)
 
 variable = ''
 old_variable = ''
 distance = 0
 start = False
 deposit = True
+Master = True
 driver = True
 sensor_readings = None
+
+
+s = socket.socket()
+host = '192.168.43.81' #ip of raspberry pi
+port = 5550
+s.bind((host, port))
+BUFFER_SIZE = 1024
+
 
 gpg = easy.EasyGoPiGo3()
 
@@ -170,32 +202,27 @@ except:
 my_linefollower.read_position()
 my_linefollower.read_position()
 t = threading.Thread(target=monitorSensorthread)
+t1 = threading.Thread(target=monitorSocketConnections)
+t1.start()
 
 # start
 #gpg.forward()
 while True:
-    if driver == True:
-        try:
-            if not t.isAlive():
-                print("ajothreadi aloitus")
-                t.start()
-            drive()
+    while Master == True:
+        if driver == True:
+            try:
+                if not t.isAlive():
+                    t.start()
+                drive()
 
-        except KeyboardInterrupt:
-            print("Forced reset")
-            gpg.reset_all()
-            sys.exit()
-    elif driver == False:
-        try:
+            except KeyboardInterrupt:
+                gpg.reset_all()
+                sys.exit()
+        elif driver == False:
+            try:
 
-            camera_thread()
-            print("driver",driver)
-            print("start",start)
-            #if not t1.isAlive():
-             #   print("threadi aloitus")
-              #  t1.start()
-               # print(start)
-        except KeyboardInterrupt:
-            print("Forced reset")
-            gpg.reset_all()
-            sys.exit()
+                camera_thread()
+
+            except KeyboardInterrupt:
+                gpg.reset_all()
+                sys.exit()
