@@ -203,7 +203,7 @@ border-radius:6px;
 }</string>
     </property>
     <property name="text">
-     <string>Debug_ruutu</string>
+     <string>Panttibotti widget v1.0</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
