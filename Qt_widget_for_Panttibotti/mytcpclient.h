@@ -18,6 +18,7 @@ public:
     void skip_f();
     void connectToServer();
     void disconnect_f();
+    void resume_f();
 
     string debug_handler();
     void debug_send(string debug_message);

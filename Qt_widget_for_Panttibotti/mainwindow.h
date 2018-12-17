@@ -30,6 +30,8 @@ private slots:
 
     void on_connect_button_clicked();
 
+    void on_resume_Button_clicked();
+
 private:
     Ui::MainWindow *ui;
     MyTcpClient * client;

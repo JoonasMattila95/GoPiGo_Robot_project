@@ -12,13 +12,11 @@ MyTcpClient::~MyTcpClient()
 {
     delete socket;
     socket = nullptr;
-    debug_send("10: Socket Deleted");
 }
 
 void MyTcpClient::connectToServer()
 {
-    debug_send("1: Socket Created");
-    debug_send("2: Connecting To Server");
+    debug_send("Connecting To Server");
     socket->connectToHost("192.168.43.81", 5550);
     if(!socket->waitForConnected(100))
     {
@@ -33,8 +31,7 @@ void MyTcpClient::connectToServer()
 
 void MyTcpClient::myConnectedSlot()
 {
-    debug_send("3: Client Connected To Server");
-    debug_send("4: Write message To Server.");
+    debug_send("Client Connected To Server");
 }
 
 void MyTcpClient::myDisconnectedSlot()
@@ -45,12 +42,14 @@ void MyTcpClient::myDisconnectedSlot()
 void MyTcpClient::stop_f()
 {
     socket->write("STOP");
+    debug_send("Emergency stop pressed");
 }
 
 
 void MyTcpClient::skip_f()
 {
-    socket->write("OHITUS");
+    socket->write("BYPASS");
+    debug_send("Photo recognition bypassed");
 }
 
 void MyTcpClient::disconnect_f()
@@ -76,4 +75,10 @@ void MyTcpClient::debug_send(string debug_message)
 {
     info = debug_message;
     emit debug();
+}
+
+void MyTcpClient::resume_f()
+{
+    socket->write("CONTINUE");
+    debug_send("Emergency stop cleared");
 }

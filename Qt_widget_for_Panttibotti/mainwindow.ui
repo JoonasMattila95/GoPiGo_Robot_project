@@ -66,35 +66,7 @@ background-color:rgb(85, 255, 255);
 }s</string>
        </property>
        <property name="text">
-        <string>Hätäseis</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QPushButton" name="close_button">
-       <property name="minimumSize">
-        <size>
-         <width>240</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton
-{
-border: 2px solid rgb(0, 85, 255);
-background-color:white;
-border-radius:6px;
-	font: 16pt &quot;MS Shell Dlg 2&quot;;
-}
-
-QPushButton:pressed
-{
-border: 2px solid rgb(0, 85, 255);
-background-color:rgb(85, 255, 255);
-}s</string>
-       </property>
-       <property name="text">
-        <string>Katkaise yhteys</string>
+        <string>Emergency stop</string>
        </property>
       </widget>
      </item>
@@ -122,11 +94,67 @@ background-color:rgb(85, 255, 255);
 }s</string>
        </property>
        <property name="text">
-        <string>Ohita kuvantunnistus</string>
+        <string>Bypass photo recognition</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
+     <item row="0" column="3">
+      <widget class="QPushButton" name="close_button">
+       <property name="minimumSize">
+        <size>
+         <width>240</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+border: 2px solid rgb(0, 85, 255);
+background-color:white;
+border-radius:6px;
+	font: 16pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QPushButton:pressed
+{
+border: 2px solid rgb(0, 85, 255);
+background-color:rgb(85, 255, 255);
+}s</string>
+       </property>
+       <property name="text">
+        <string>Close connection</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QPushButton" name="resume_Button">
+       <property name="minimumSize">
+        <size>
+         <width>240</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+border: 2px solid rgb(0, 85, 255);
+background-color:white;
+border-radius:6px;
+font: 16pt &quot;MS Shell Dlg 2&quot;;
+}
+
+QPushButton:pressed
+{
+border: 2px solid rgb(0, 85, 255);
+background-color:rgb(85, 255, 255);
+}s</string>
+       </property>
+       <property name="text">
+        <string>clear emergency stop</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
       <widget class="QPushButton" name="connect_button">
        <property name="minimumSize">
         <size>
@@ -150,7 +178,7 @@ background-color:rgb(85, 255, 255);
 }s</string>
        </property>
        <property name="text">
-        <string>Yhdistä </string>
+        <string>Connect</string>
        </property>
       </widget>
      </item>

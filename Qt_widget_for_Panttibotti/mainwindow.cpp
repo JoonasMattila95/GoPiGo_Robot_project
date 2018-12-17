@@ -80,3 +80,8 @@ void MainWindow::on_connect_button_clicked()
 {
   client->connectToServer();
 }
+
+void MainWindow::on_resume_Button_clicked()
+{
+    client->resume_f();
+}
