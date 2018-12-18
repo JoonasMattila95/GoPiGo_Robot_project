@@ -9,7 +9,7 @@
   <body>
     <div class="container bg-dark align-items-center">
       <div class="row w-50 bg-secondary">
-      <form class="" action="<?php echo base_url()?>/index.php/Oma_controlleri/add_user/" method="post">
+      <form class="" action="<?php echo base_url()?>index.php/Oma_controlleri/add_user/" method="post">
           <label class="padder" for="username_label">Anna käyttäjänimi:</label><br>
           <input class="padder" type="text" name="username_input" size="50%" placeholder="username"><br>
           <label class="padder" for="password_label">Anna salasana:</label><br>

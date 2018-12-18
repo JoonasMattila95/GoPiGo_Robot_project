@@ -84,7 +84,7 @@ function fetch_data()
 {
   $this->load->database();
 
-  $DB_log = $this->db->query('select * from ajodata');
+  $DB_log = $this->db->query('select * from ajodata order by timestamp desc');
   $DB_log = $DB_log->result();
   return $DB_log;
 }

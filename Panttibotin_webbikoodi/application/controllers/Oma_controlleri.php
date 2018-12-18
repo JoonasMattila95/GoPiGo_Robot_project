@@ -55,7 +55,7 @@ class Oma_controlleri extends CI_Controller {
 		$user_created = $this->Database_access->add_user_DB($data);
 		if($user_created == TRUE)
 		{
-			redirect(base_url().'/index.php/Oma_controlleri/register_success');
+			redirect(base_url().'index.php/Oma_controlleri/register_success');
 		}
 		else {
 			redirect(base_url().'index.php/Oma_controlleri/load_registeration_form');
